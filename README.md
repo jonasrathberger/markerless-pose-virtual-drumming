@@ -1,6 +1,6 @@
-# Pose-Based Virtual Drumming
+# Markerless Pose Estimation for Virtual Drumming
 
-This repository contains the code and curated thesis artifacts for my Master thesis **Pose-Based Virtual Drumming: Detecting Hits and Classifying Drum Targets from Body and Hand Motion**. The project investigates camera-based and marker-based drumming motion, evaluates Apple Vision and MediaPipe pose estimates against OptiTrack recordings, and implements a real-time Apple Vision virtual drumming prototype with hit detection, drum-target classification, MIDI output, and evaluation tooling.
+This repository contains the code and curated thesis artifacts for my Master thesis **Markerless Pose Estimation for Virtual Drumming: Detecting Hits and Classifying Drum Targets from Body and Hand Motion**. The project investigates camera-based and marker-based drumming motion, evaluates Apple Vision and MediaPipe pose estimates against OptiTrack recordings, and implements a real-time Apple Vision virtual drumming prototype with hit detection, drum-target classification, MIDI output, and evaluation tooling.
 
 The repository is organized as a thesis reproduction bundle: source code, pipeline configuration, small reference inputs, and the trained virtual-drumming KNN artifacts are included. Generated thesis CSVs, figure images, large raw recordings, videos, local model bundles, and regenerated intermediate folders are intentionally ignored; recreate them locally from the original data.
 
