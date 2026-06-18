@@ -1,0 +1,28 @@
+# Shared thesis figure generation and analysis
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+scipy>=1.11
+scikit-learn>=1.4
+statsmodels>=0.14
+seaborn>=0.13
+plotly>=5.24
+streamlit>=1.35
+pyarrow>=16.0
+
+# Camera/video and pose recording
+opencv-python>=4.9
+mediapipe>=0.10.14
+
+# MIDI output and MIDI reference evaluation
+mido>=1.3
+python-rtmidi>=1.5
+
+# macOS Apple Vision / AVFoundation bindings
+pyobjc-core>=10.3
+pyobjc-framework-AVFoundation>=10.3
+pyobjc-framework-Cocoa>=10.3
+pyobjc-framework-CoreMedia>=10.3
+pyobjc-framework-libdispatch>=10.3
+pyobjc-framework-Quartz>=10.3
+pyobjc-framework-Vision>=10.3

@@ -1,0 +1,57 @@
+{
+  "alignment_feature": {
+    "target_file": "knee_default_left.csv",
+    "axis": "y",
+    "invert_pose_y": true,
+    "description": "First later left-knee y peak chosen from the reviewed search windows."
+  },
+  "trim_window": {
+    "seconds_before_peak": 16.0,
+    "seconds_after_peak": 102.0,
+    "trimmed_clip_starts_at_zero": true,
+    "aligned_peak_offset_sec": 16.0
+  },
+  "recordings": [
+    {
+      "source": "mocap",
+      "recording_id": "air_knees",
+      "peak_time_sec": 32.225,
+      "peak_frame_index": 11601,
+      "search_window_sec": [
+        20.0,
+        40.0
+      ]
+    },
+    {
+      "source": "mocap",
+      "recording_id": "drums",
+      "peak_time_sec": 37.111111,
+      "peak_frame_index": 13360,
+      "peak_direction": "valley",
+      "search_window_sec": [
+        34.0,
+        45.0
+      ]
+    },
+    {
+      "source": "pose",
+      "recording_id": "apple_vision",
+      "peak_time_sec": 26.4331367499835,
+      "peak_frame_index": 3765,
+      "search_window_sec": [
+        24.0,
+        32.0
+      ]
+    },
+    {
+      "source": "pose",
+      "recording_id": "mediapipe",
+      "peak_time_sec": 28.3194042079849,
+      "peak_frame_index": 1153,
+      "search_window_sec": [
+        24.0,
+        36.0
+      ]
+    }
+  ]
+}

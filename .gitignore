@@ -1,0 +1,81 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local caches and generated build metadata
+.cache/
+.runtime_cache/
+*.egg-info/
+build/
+dist/
+
+# Archives and large media/raw model assets
+*.zip
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.task
+*.parquet
+
+# Raw/generated data intentionally omitted from this curated thesis repo
+pose_recording/recordings/
+pose_recording/model_assets/
+virtual_drumming_app/target_sample_videos/
+thesis_data/raw/mocap/**
+!thesis_data/raw/mocap/.gitkeep
+thesis_data/raw/pose/**
+!thesis_data/raw/pose/.gitkeep
+!thesis_data/raw/pose/apple_vision/
+!thesis_data/raw/pose/apple_vision/.gitkeep
+!thesis_data/raw/pose/mediapipe/
+!thesis_data/raw/pose/mediapipe/.gitkeep
+
+# Generated thesis data products. Keep directory placeholders and small
+# original/reference inputs, but do not track regenerated metrics/figures.
+thesis_data/motion_analysis/**
+!thesis_data/motion_analysis/.gitkeep
+!thesis_data/motion_analysis/proxy_overlays/
+!thesis_data/motion_analysis/proxy_overlays/.gitkeep
+
+thesis_data/pose_evaluation/**
+!thesis_data/pose_evaluation/.gitkeep
+!thesis_data/pose_evaluation/prepared_result/
+!thesis_data/pose_evaluation/prepared_result/.gitkeep
+!thesis_data/pose_evaluation/aligned_result/
+!thesis_data/pose_evaluation/aligned_result/.gitkeep
+
+thesis_data/virtual_drumming/*.csv
+thesis_data/virtual_drumming/*.png
+thesis_data/virtual_drumming/summary_metrics.json
+
+thesis_figures/**/*.png
+thesis_figures/**/*.csv
+thesis_figures/**/*.tex
+
+motion_evaluation/pose_evaluation/data_preparation/result/
+motion_evaluation/pose_evaluation/data_preparation/result_variants/
+motion_evaluation/pose_evaluation/data_alignment/aligned_result/
+motion_evaluation/pose_evaluation/data_alignment/aligned_variants/
+motion_evaluation/pose_evaluation/data_analysis/output/
+motion_evaluation/pose_evaluation/data_analysis/output/plots/
+motion_evaluation/pose_evaluation/data_analysis/output_shift_refined/
+motion_evaluation/pose_evaluation/data_analysis/output_variants/
+motion_evaluation/motion_analysis/results/
+motion_evaluation/motion_analysis/reports/
+thesis_figures/.DS_Store
+virtual_drumming_app/target_feature_analysis_static.json
