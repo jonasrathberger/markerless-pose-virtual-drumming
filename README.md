@@ -15,13 +15,19 @@ The repository is organized as a thesis reproduction bundle: source code, pipeli
 
 ## Setup
 
-Install the shared Python environment from the repository root:
+### Tested Environment
+
+The project was developed and tested primarily on a MacBook Pro with Apple Silicon using macOS 26.5.1 and Python 3.11.15. The working environment was managed with conda, while the Python package dependencies are listed in `requirements.txt`.
+
+A basic conda setup can be created with:
 
 ```bash
+conda create -n virtual-drumming python=3.11
+conda activate virtual-drumming
 python -m pip install -r requirements.txt
 ```
 
-The live Apple Vision prototype is macOS-specific and requires Apple Vision/PyObjC support on compatible Apple hardware. The analysis and thesis figure-generation scripts are standard Python workflows and are more portable, but the real-time Apple Vision app is not.
+The live Apple Vision prototype requires macOS and PyObjC bindings for Apple frameworks. The analysis and figure-generation scripts are more portable, but the real-time Apple Vision application is macOS-specific.
 
 ## Raw Data Placement
 
