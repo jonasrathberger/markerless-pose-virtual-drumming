@@ -12,7 +12,7 @@ Large source recordings and regenerated data should be supplied locally:
 ```text
 thesis_data/
   raw/mocap/
-    air_feet.csv
+    air_forefoot.csv
     air_knees.csv
     drums.csv
   raw/pose/apple_vision/

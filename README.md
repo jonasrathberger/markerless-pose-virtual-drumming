@@ -31,7 +31,7 @@ The live Apple Vision prototype requires macOS and PyObjC bindings for Apple fra
 
 ## Raw Data Placement
 
-Large source files are not committed. If you have the raw files, place OptiTrack CSVs in `thesis_data/raw/mocap/` as `air_feet.csv`, `air_knees.csv`, and `drums.csv`. Place pose-estimation recordings in `thesis_data/raw/pose/apple_vision/` and `thesis_data/raw/pose/mediapipe/`; each folder should contain `landmarks.csv` and `metadata.json`. Place the virtual-drumming evaluation media in `thesis_data/virtual_drumming/`, especially `evaluation_60bpm.mp4` and `evaluation_60bpm.json`.
+Large source files are not committed. If you have the raw files, place OptiTrack CSVs in `thesis_data/raw/mocap/` as `air_forefoot.csv`, `air_knees.csv`, and `drums.csv`. Place pose-estimation recordings in `thesis_data/raw/pose/apple_vision/` and `thesis_data/raw/pose/mediapipe/`; each folder should contain `landmarks.csv` and `metadata.json`. Place the virtual-drumming evaluation media in `thesis_data/virtual_drumming/`, especially `evaluation_60bpm.mp4` and `evaluation_60bpm.json`.
 
 ## Thesis Commands
 

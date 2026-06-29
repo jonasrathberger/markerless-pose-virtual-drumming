@@ -10,7 +10,7 @@ python -m pip install -r requirements.txt
 
 ## Raw Data
 
-Large raw files are ignored by Git. Put OptiTrack CSVs in `thesis_data/raw/mocap/` as `air_feet.csv`, `air_knees.csv`, and `drums.csv`. Put pose recordings in `thesis_data/raw/pose/apple_vision/` and `thesis_data/raw/pose/mediapipe/`; each session should contain `landmarks.csv` and `metadata.json`. Put virtual-drumming evaluation media in `thesis_data/virtual_drumming/`, especially `evaluation_60bpm.mp4` and `evaluation_60bpm.json`.
+Large raw files are ignored by Git. Put OptiTrack CSVs in `thesis_data/raw/mocap/` as `air_forefoot.csv`, `air_knees.csv`, and `drums.csv`. Put pose recordings in `thesis_data/raw/pose/apple_vision/` and `thesis_data/raw/pose/mediapipe/`; each session should contain `landmarks.csv` and `metadata.json`. Put virtual-drumming evaluation media in `thesis_data/virtual_drumming/`, especially `evaluation_60bpm.mp4` and `evaluation_60bpm.json`.
 
 ## pose_recording/
 

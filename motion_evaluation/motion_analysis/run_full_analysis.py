@@ -29,7 +29,7 @@ RAW_INPUT_DIR = REPO_ROOT / "thesis_data" / "raw" / "mocap"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "thesis_data" / "motion_analysis"
 
 OPTITRACK_FILES = {
-    "air_feet": RAW_INPUT_DIR / "air_feet.csv",
+    "air_feet": RAW_INPUT_DIR / "air_forefoot.csv",
     "air_knees": RAW_INPUT_DIR / "air_knees.csv",
     "drums": RAW_INPUT_DIR / "drums.csv",
 }
