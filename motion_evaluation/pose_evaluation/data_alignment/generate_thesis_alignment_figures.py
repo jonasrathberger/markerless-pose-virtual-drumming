@@ -26,8 +26,8 @@ DEFAULT_CONFIG_PATH = ROOT_DIR / "data_alignment" / "left_knee_alignment_config.
 
 RECORDING_ORDER = ["air_knees", "drums", "apple_vision", "mediapipe"]
 RECORDING_LABELS = {
-    "air_knees": "OptiTrack Motion Capture: Air Knees",
-    "drums": "OptiTrack Motion Capture: Drums",
+    "air_knees": "OptiTrack Motion Capture: Air-Knees",
+    "drums": "OptiTrack Motion Capture: Physical Drumming",
     "apple_vision": "Apple Vision",
     "mediapipe": "MediaPipe",
 }
@@ -161,7 +161,7 @@ def plot_air_knees_left_knee(prepared_dir: Path, output_path: Path) -> Path | No
     frame = _signal(path, axis_name="y", source_name="mocap", valid_only=True, normalize=False, invert_pose_vertical=False)
     figure, axis = plt.subplots(figsize=figure_size("wide", aspect=0.52), dpi=THESIS_STYLE.dpi)
     axis.plot(frame["plot_time_sec"], frame["plot_y"], color=THESIS_STYLE.blue, linewidth=0.9, label="y")
-    axis.set_title("LK trajectory in air_knees")
+    axis.set_title("LK trajectory in Air-Knees")
     axis.set_xlabel("Time (s)")
     axis.set_ylabel("Value")
     axis.legend(loc="upper right")

@@ -90,12 +90,12 @@ CONDITION_ORDER = [
 ]
 
 CONDITION_LABELS = {
-    ("air_feet", "L"): "Air feet (L)",
-    ("air_feet", "R"): "Air feet (R)",
-    ("air_knees", "L"): "Air knees (L)",
-    ("air_knees", "R"): "Air knees (R)",
-    ("drums", "L"): "Drums (L)",
-    ("drums", "R"): "Drums (R)",
+    ("air_feet", "L"): "Air-Forefoot (L)",
+    ("air_feet", "R"): "Air-Forefoot (R)",
+    ("air_knees", "L"): "Air-Knees (L)",
+    ("air_knees", "R"): "Air-Knees (R)",
+    ("drums", "L"): "Physical Drumming (L)",
+    ("drums", "R"): "Physical Drumming (R)",
 }
 
 

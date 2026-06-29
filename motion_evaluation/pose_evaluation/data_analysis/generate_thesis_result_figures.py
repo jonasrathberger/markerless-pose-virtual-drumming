@@ -49,8 +49,8 @@ PALETTE = {
 }
 
 LABELS = {
-    "air_knees": "OptiTrack Motion Capture: Air Knees",
-    "drums": "OptiTrack Motion Capture: Drums",
+    "air_knees": "OptiTrack Motion Capture: Air-Knees",
+    "drums": "OptiTrack Motion Capture: Physical Drumming",
     "apple_vision": "Apple Vision",
     "mediapipe": "MediaPipe",
     "optitrack": "OptiTrack",
@@ -63,8 +63,8 @@ ALIGNMENT_LABELS = {
 }
 
 CONDITION_LABELS = {
-    "air_knees": "Air Knees",
-    "drums": "Drums",
+    "air_knees": "Air-Knees",
+    "drums": "Physical Drumming",
 }
 
 TRIAL_SHORT_LABELS = {

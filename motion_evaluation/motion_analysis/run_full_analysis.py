@@ -20,10 +20,10 @@ import pandas as pd
 os.environ.setdefault("MPLCONFIGDIR", str(Path("/tmp/mplcache").resolve()))
 
 from analysis_knee_foot import paired_test
-from analysis_proxy import grid_search_wrist_multiplier, wrist_relative_proxy
 from features import range_metrics
 from io_optitrack import load_optitrack_csv
-from viz import plot_box_compare, plot_proxy_regression, plot_time_overlay
+from proxy_dynamic import run_proxy_dynamic
+from viz import plot_box_compare
 
 RAW_INPUT_DIR = REPO_ROOT / "thesis_data" / "raw" / "mocap"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "thesis_data" / "motion_analysis"
@@ -32,6 +32,12 @@ OPTITRACK_FILES = {
     "air_feet": RAW_INPUT_DIR / "air_feet.csv",
     "air_knees": RAW_INPUT_DIR / "air_knees.csv",
     "drums": RAW_INPUT_DIR / "drums.csv",
+}
+
+CONDITION_DISPLAY_NAMES = {
+    "air_feet": "Air-Forefoot",
+    "air_knees": "Air-Knees",
+    "drums": "Physical Drumming",
 }
 
 
@@ -70,11 +76,6 @@ def load_all() -> dict[str, Any]:
     return {name: load_optitrack_csv(path) for name, path in OPTITRACK_FILES.items()}
 
 
-def composite_score(row: pd.Series) -> float:
-    onset_term = float(row["onset_mae_ms"]) / 1000.0 if pd.notna(row["onset_mae_ms"]) else 1.0
-    return float(row["rmse"]) + onset_term + (1.0 - float(row["f1"]))
-
-
 def proxy_analysis(
     opti: dict[str, Any],
     *,
@@ -82,104 +83,11 @@ def proxy_analysis(
     overlay_dir: Path,
     diagnostic_dir: Path | None,
 ) -> pd.DataFrame:
-    side_cfg = {
-        "L": {
-            "pinky": "Skeleton 002:LPinky1|Position|Y",
-            "wrist": "Skeleton 002:LWristOut|Position|Y",
-            "stick": "LStick:Tip|Position|Y",
-        },
-        "R": {
-            "pinky": "Skeleton 002:RPinky1|Position|Y",
-            "wrist": "Skeleton 002:RWristOut|Position|Y",
-            "stick": "RStick:Tip|Position|Y",
-        },
-    }
-
-    rows: list[dict[str, Any]] = []
-    k_coarse = np.arange(-2.0, 30.5, 0.5)
-
-    for recording_name, rec in opti.items():
-        df = rec.data
-        for side, cfg in side_cfg.items():
-            pinky = df[cfg["pinky"]]
-            wrist = df[cfg["wrist"]]
-            stick = df[cfg["stick"]]
-            time_s = df["time_s"]
-
-            coarse = grid_search_wrist_multiplier(
-                pinky_y=pinky,
-                wrist_y=wrist,
-                target_y=stick,
-                time_s=time_s,
-                k_values=k_coarse,
-                min_prom_scale=0.05,
-                tolerance_ms=50.0,
-            )
-            best_curve = coarse.sort_values(["rmse", "mae"], ascending=[True, True]).iloc[0]
-            best_f1 = coarse.sort_values(["f1", "onset_mae_ms", "rmse"], ascending=[False, True, True]).iloc[0]
-            centers = sorted(set([float(best_curve["k"]), float(best_f1["k"])]))
-            k_refined = np.unique(np.concatenate([np.arange(center - 1.0, center + 1.0001, 0.1) for center in centers]))
-            refined = grid_search_wrist_multiplier(
-                pinky_y=pinky,
-                wrist_y=wrist,
-                target_y=stick,
-                time_s=time_s,
-                k_values=k_refined,
-                min_prom_scale=0.05,
-                tolerance_ms=50.0,
-            )
-            full = pd.concat([coarse, refined], ignore_index=True).drop_duplicates(subset=["k"])
-            best_curve = full.sort_values(["rmse", "mae"], ascending=[True, True]).iloc[0]
-            best_f1 = full.sort_values(["f1", "onset_mae_ms", "rmse"], ascending=[False, True, True]).iloc[0]
-
-            for model_name, best_row in (
-                ("fixed_k_best_rmse", best_curve),
-                ("fixed_k_best_f1", best_f1),
-            ):
-                row = {
-                    "recording": recording_name,
-                    "side": side,
-                    "model_name": model_name,
-                    "model_family": "fixed_k",
-                    "target_form": "fixed k",
-                    "split": "test",
-                    "r2": float(best_row["r2"]),
-                    "rmse": float(best_row["rmse"]),
-                    "mae": float(best_row["mae"]),
-                    "precision": float(best_row["precision"]),
-                    "recall": float(best_row["recall"]),
-                    "f1": float(best_row["f1"]),
-                    "onset_mae_ms": float(best_row["onset_mae_ms"]),
-                    "onset_jitter_ms": float(best_row["onset_jitter_ms"]),
-                }
-                row["composite_score"] = composite_score(pd.Series(row))
-                rows.append(row)
-
-            overlay_row = best_f1
-            proxy = wrist_relative_proxy(pinky, wrist, float(overlay_row["k"]))
-            if recording_name == "drums":
-                mask = time_s <= 30.0
-                plot_time_overlay(
-                    time_s.loc[mask],
-                    stick.loc[mask],
-                    proxy.loc[mask],
-                    overlay_dir / f"proxy_dynamic_overlay_top_{recording_name}_{side}.png",
-                    title=f"{recording_name} {side} stick vs fixed-k proxy",
-                )
-
-            if diagnostic_dir is not None:
-                for model_name, best_row in (("best_f1", best_f1), ("best_rmse", best_curve)):
-                    proxy = wrist_relative_proxy(pinky, wrist, float(best_row["k"]))
-                    tag = f"{recording_name}_{side}_{model_name}_k_{float(best_row['k']):.2f}".replace(".", "p")
-                    plot_proxy_regression(
-                        predictor=proxy,
-                        target=stick,
-                        predicted=proxy,
-                        out_path=diagnostic_dir / f"proxy_wrist_relative_{tag}.png",
-                        title=f"{recording_name} {side} fixed-k proxy",
-                    )
-
-    proxy_df = pd.DataFrame(rows)
+    proxy_df = run_proxy_dynamic(
+        opti,
+        overlay_dir=overlay_dir,
+        overlay_recordings={"drums": CONDITION_DISPLAY_NAMES["drums"]},
+    )
     proxy_df.to_csv(output_dir / "proxy_dynamic_metrics.csv", index=False)
     return proxy_df
 
@@ -224,8 +132,8 @@ def knee_toe_analysis(
     knees = opti["air_knees"].data
     toes = opti["air_feet"].data
     configs = [
-        ("L", "Skeleton 002:LKneeOut|Position|Y", "Skeleton 002:LToe|Position|Y"),
-        ("R", "Skeleton 002:RKneeOut|Position|Y", "Skeleton 002:RToe|Position|Y"),
+        ("L", "Skeleton 002:LKneeOut|Position|Y", "Skeleton 002:LToeTip|Position|Y"),
+        ("R", "Skeleton 002:RKneeOut|Position|Y", "Skeleton 002:RToeTip|Position|Y"),
     ]
 
     segment_rows: list[dict[str, Any]] = []

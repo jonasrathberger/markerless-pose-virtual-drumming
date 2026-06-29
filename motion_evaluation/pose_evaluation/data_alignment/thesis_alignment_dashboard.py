@@ -44,8 +44,8 @@ RECORDING_ID_ALIASES = {
 }
 RECORDING_ORDER = ["air_knees", "drums", "apple_vision", "mediapipe"]
 RECORDING_LABELS = {
-    "air_knees": "OptiTrack Motion Capture: Air Knees",
-    "drums": "OptiTrack Motion Capture: Drums",
+    "air_knees": "OptiTrack Motion Capture: Air-Knees",
+    "drums": "OptiTrack Motion Capture: Physical Drumming",
     "apple_vision": "Apple Vision",
     "mediapipe": "MediaPipe",
 }
